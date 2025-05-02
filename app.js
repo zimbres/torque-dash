@@ -6,7 +6,7 @@ const cors = require('cors');
 // const logger = require('morgan');
 const { sequelize } = require('./models');
 const config = require('./config/config');
-const exphbs = require('express-handlebars');
+const { engine } = require('express-handlebars');
 const flash = require('connect-flash');
 const session = require('cookie-session');
 const passport = require('passport');
@@ -33,7 +33,7 @@ app.use((req, res, next) => {
 });
 
 // Set templating engine
-app.engine('hbs', exphbs({defaultLayout: 'main', extname: 'hbs'}));
+app.engine('hbs', engine({defaultLayout: 'main', extname: 'hbs'}));
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, '/views'));
 
