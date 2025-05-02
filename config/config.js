@@ -1,7 +1,7 @@
 let config = {
     port: process.env.PORT || 3000,
     db: {
-        uri: process.env.DATABASE_URL || 'postgres://postgres:heslo@localhost:5432/torquedash',
+        uri: process.env.DATABASE_URL || 'postgres://torquedash:torquedash@192.168.100.190:5432/torquedash',
         options: {
             logging: false
         }
