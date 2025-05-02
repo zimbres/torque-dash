@@ -37,13 +37,23 @@ module.exports = (sequelize, DataTypes) => {
 
     // Static method for user data validation
     User.validate = function(user) {
-        const schema = {
-            email: Joi.string().required().email({ minDomainAtoms: 2 }).error(new Error('Please provide a valid email.')),
-            password: Joi.string().min(8).required(),
-            confirmPassword: Joi.string().valid(Joi.ref('password')).error(new Error('Passwords do not match.'))
-        }
-        return Joi.validate(user, schema);
-    }
+        const schema = Joi.object({
+            email: Joi.string().email().required().messages({
+                'string.email': 'Please provide a valid email.',
+                'any.required': 'Email is required.'
+            }),
+            password: Joi.string().min(8).required().messages({
+                'string.min': 'Password must be at least 8 characters long.',
+                'any.required': 'Password is required.'
+            }),
+            confirmPassword: Joi.string().valid(Joi.ref('password')).required().messages({
+                'any.only': 'Passwords do not match.',
+                'any.required': 'Please confirm your password.'
+            })
+        });
+    
+        return schema.validate(user);
+    };
 
     // Instance method for password comparison
     User.prototype.comparePassword = async function(password) {
