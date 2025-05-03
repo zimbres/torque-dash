@@ -7,7 +7,9 @@ let config = {
         }
     },
     session: {
-        keys: process.env.SESSION_KEYS || ['6a5w4d65a4wd', 'a65w4d6aw4d89a4', '65f4b8b4szd8']
+        keys: process.env.SESSION_KEYS 
+            ? process.env.SESSION_KEYS.split(',') 
+            : ['6a5w4d65a4wd', 'a65w4d6aw4d89a4', '65f4b8b4szd8']
     }
 };
 
